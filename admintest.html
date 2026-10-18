@@ -20,59 +20,71 @@
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
     <style> 
         body { font-family: 'Inter', sans-serif; } 
-        .ql-editor { min-height: 220px; font-size: 15px; }
+        .ql-editor { min-height: 220px; font-size: 14px; font-weight: 400; }
         
-        /* Neatly organized toolbar styling with boxed tools */
+        /* Compact, refined toolbar styling */
         .ql-toolbar.ql-snow { 
             border-top-left-radius: 0.75rem; 
             border-top-right-radius: 0.75rem; 
-            border-color: #cbd5e1; 
+            border-color: #e2e8f0; 
             background-color: #f8fafc; 
-            padding: 10px 12px;
+            padding: 6px 10px;
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 5px;
             align-items: center;
         }
 
-        /* Distinct boxed styling for every toolbar button and dropdown */
+        /* Equal-sized, smaller, non-bold boxed buttons & pickers */
         .ql-toolbar.ql-snow button,
         .ql-toolbar.ql-snow .ql-picker {
             border: 1px solid #cbd5e1 !important;
             border-radius: 0.375rem !important;
             background-color: #ffffff !important;
-            height: 32px !important;
+            height: 26px !important;
+            font-weight: 400 !important;
+            font-size: 12px !important;
             transition: all 0.15s ease-in-out;
         }
 
+        /* Uniform square shape for toolbar buttons */
         .ql-toolbar.ql-snow button {
-            width: 32px !important;
+            width: 26px !important;
+            padding: 0 !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
         }
 
-        .ql-toolbar.ql-snow .ql-picker-label {
-            padding-left: 8px !important;
-            padding-right: 8px !important;
-            display: flex !important;
-            align-items: center !important;
+        /* Scaled-down SVG icons with light strokes */
+        .ql-toolbar.ql-snow button svg {
+            width: 13px !important;
+            height: 13px !important;
+            stroke-width: 1.2 !important;
         }
 
-        /* Hover & Active Box Effects */
+        .ql-toolbar.ql-snow .ql-picker-label {
+            padding-left: 6px !important;
+            padding-right: 6px !important;
+            display: flex !important;
+            align-items: center !important;
+            font-size: 12px !important;
+            font-weight: 400 !important;
+        }
+
+        /* Hover & Active States */
         .ql-toolbar.ql-snow button:hover,
         .ql-toolbar.ql-snow .ql-picker:hover,
         .ql-toolbar.ql-snow button.ql-active,
         .ql-toolbar.ql-snow .ql-picker.ql-expanded {
             border-color: #0284c7 !important;
             background-color: #f0f9ff !important;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
         .ql-container.ql-snow { 
             border-bottom-left-radius: 0.75rem; 
             border-bottom-right-radius: 0.75rem; 
-            border-color: #cbd5e1; 
+            border-color: #e2e8f0; 
         }
 
         /* Register Custom Font Families */
@@ -87,18 +99,21 @@
         .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="roboto"]::before {
             content: 'Roboto' !important;
             font-family: 'Roboto', sans-serif;
+            font-weight: 400 !important;
         }
 
         .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="mirza"]::before,
         .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="mirza"]::before {
             content: 'Mirza' !important;
             font-family: 'Mirza', cursive;
+            font-weight: 400 !important;
         }
 
         .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="comic"]::before,
         .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="comic"]::before {
             content: 'Comic Sans' !important;
             font-family: 'Comic Neue', cursive;
+            font-weight: 400 !important;
         }
     </style>
 </head>
@@ -160,7 +175,7 @@
 
                     <!-- Rich Text Editor Container -->
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Update Details & Description (Boxed Toolbar)</label>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Update Details & Description</label>
                         <div id="editorContainer" class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"></div>
                     </div>
 
