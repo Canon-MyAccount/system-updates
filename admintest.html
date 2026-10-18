@@ -22,7 +22,7 @@
         body { font-family: 'Inter', sans-serif; } 
         .ql-editor { min-height: 220px; font-size: 15px; }
         
-        /* Neatly organized toolbar styling */
+        /* Neatly organized toolbar styling with boxed tools */
         .ql-toolbar.ql-snow { 
             border-top-left-radius: 0.75rem; 
             border-top-right-radius: 0.75rem; 
@@ -31,9 +31,44 @@
             padding: 10px 12px;
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 8px;
             align-items: center;
         }
+
+        /* Distinct boxed styling for every toolbar button and dropdown */
+        .ql-toolbar.ql-snow button,
+        .ql-toolbar.ql-snow .ql-picker {
+            border: 1px solid #cbd5e1 !important;
+            border-radius: 0.375rem !important;
+            background-color: #ffffff !important;
+            height: 32px !important;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .ql-toolbar.ql-snow button {
+            width: 32px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .ql-toolbar.ql-snow .ql-picker-label {
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        /* Hover & Active Box Effects */
+        .ql-toolbar.ql-snow button:hover,
+        .ql-toolbar.ql-snow .ql-picker:hover,
+        .ql-toolbar.ql-snow button.ql-active,
+        .ql-toolbar.ql-snow .ql-picker.ql-expanded {
+            border-color: #0284c7 !important;
+            background-color: #f0f9ff !important;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
         .ql-container.ql-snow { 
             border-bottom-left-radius: 0.75rem; 
             border-bottom-right-radius: 0.75rem; 
@@ -125,7 +160,7 @@
 
                     <!-- Rich Text Editor Container -->
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Update Details & Description (Expanded Toolbar)</label>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Update Details & Description (Boxed Toolbar)</label>
                         <div id="editorContainer" class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"></div>
                     </div>
 
@@ -201,17 +236,11 @@
                         // Group 3: Color Palette & Highlights
                         [{ 'color': [] }, { 'background': [] }],
                         
-                        // Group 4: Subscript / Superscript
-                        [{ 'script': 'sub'}, { 'script': 'super' }],
-                        
-                        // Group 5: Lists & Indentation
+                        // Group 4: Lists & Indentation
                         [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'indent': '-1'}, { 'indent': '+1' }],
                         
-                        // Group 6: Text Alignment
-                        [{ 'align': [] }],
-                        
-                        // Group 7: Clear Formatting
-                        ['clean']
+                        // Group 5: Text Alignment
+                        [{ 'align': [] }]
                     ]
                 }
             });
