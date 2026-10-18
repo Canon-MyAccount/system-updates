@@ -27,15 +27,30 @@
     </script>
     <!-- FontAwesome Icons & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Quill.js CSS for Rich Text Rendering -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;700&family=Mirza&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Quill.js CSS for Client-Side Rich Text Rendering -->
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .glass-panel { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
-        .dark .glass-panel { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); }
-        
-        /* Custom Rich Content List Styles */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        /* Custom Font Families to Match Admin Editor */
+        .ql-font-roboto { font-family: 'Roboto', sans-serif; }
+        .ql-font-mirza { font-family: 'Mirza', cursive; }
+        .ql-font-comic { font-family: 'Comic Neue', cursive; }
+        .ql-font-serif { font-family: Georgia, serif; }
+        .ql-font-monospace { font-family: Monaco, monospace; }
+
+        /* Rich Content Container Adjustments */
+        .rich-content.ql-editor { padding: 0 !important; }
         .rich-content ul { list-style-type: disc; margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
         .rich-content ol { list-style-type: decimal; margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
         .rich-content p { margin-bottom: 0.5rem; }
@@ -44,11 +59,12 @@
 <body class="h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200">
 
     <div class="min-h-full flex flex-col">
+
         <!-- Header -->
         <header class="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-slate-800 glass-panel">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <img src="canon-logo.png" alt="Canon Logo" class="h-8 w-auto object-contain">
+                    <img src="canon-logo.png" alt="Canon Logo" class="h-8 w-auto object-contain mix-blend-multiply">
                     <div>
                         <h1 class="font-bold text-lg leading-tight tracking-tight">MyAccount Payment Portal</h1>
                         <p class="text-xs text-slate-500 dark:text-slate-400">Official System Updates</p>
@@ -66,6 +82,7 @@
         <!-- Main Content -->
         <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <section class="space-y-4">
+
                 <!-- Search and Filters -->
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
                     <div class="relative flex-1">
@@ -167,7 +184,7 @@
                         <span class="text-xs text-slate-400 font-medium"><i class="fa-regular fa-calendar mr-1"></i>${formattedDate}</span>
                     </div>
                     <h3 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">${escapeHtml(item.title)}</h3>
-                    <div class="rich-content ql-editor text-slate-600 dark:text-slate-300 text-sm leading-relaxed p-0">${item.content}</div>
+                    <div class="rich-content ql-editor text-slate-600 dark:text-slate-300 text-sm leading-relaxed">${item.content}</div>
                 `;
                 container.appendChild(card);
             });
