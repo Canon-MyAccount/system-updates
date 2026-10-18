@@ -88,7 +88,6 @@
 
             <!-- ================= PUBLIC VIEW ================= -->
             <section id="publicViewSection" class="space-y-8">
-                
 
                 <!-- Search and Category Filters Bar -->
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
@@ -98,13 +97,11 @@
                         <input type="text" id="searchInput" oninput="filterUpdates()" placeholder="Search updates history..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
                     </div>
 
-                    <!-- Filter Badges -->
+                    <!-- Filter Badges (Only All, Maintenance, Features) -->
                     <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0" id="categoryFilterContainer">
                         <button onclick="setFilter('All')" class="filter-btn active text-xs font-medium px-3.5 py-2 rounded-lg bg-brand-600 text-white transition-all whitespace-nowrap" data-category="All">All</button>
                         <button onclick="setFilter('Maintenance')" class="filter-btn text-xs font-medium px-3.5 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all whitespace-nowrap" data-category="Maintenance">Maintenance</button>
                         <button onclick="setFilter('Feature')" class="filter-btn text-xs font-medium px-3.5 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all whitespace-nowrap" data-category="Feature">Features</button>
-                        <button onclick="setFilter('Bug Fix')" class="filter-btn text-xs font-medium px-3.5 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all whitespace-nowrap" data-category="Bug Fix">Bug Fixes</button>
-                        <button onclick="setFilter('Security')" class="filter-btn text-xs font-medium px-3.5 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all whitespace-nowrap" data-category="Security">Security</button>
                     </div>
                 </div>
 
@@ -160,8 +157,6 @@
                                     <select id="postCategory" required class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
                                         <option value="Maintenance">Maintenance</option>
                                         <option value="Feature">Feature Release</option>
-                                        <option value="Bug Fix">Bug Fix</option>
-                                        <option value="Security">Security Notice</option>
                                     </select>
                                 </div>
 
@@ -172,7 +167,7 @@
 
                                 <div>
                                     <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Update Details</label>
-                                    <textarea id="postContent" required rows="5" placeholder="Provide full details regarding downtime, changes, or security fixes..." class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+                                    <textarea id="postContent" required rows="5" placeholder="Provide full details regarding downtime or feature changes..." class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
                                 </div>
 
                                 <button type="submit" id="submitBtn" class="w-full py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm shadow-md transition-all flex items-center justify-center gap-2">
@@ -282,7 +277,7 @@
 
     <!-- JavaScript Logic -->
     <script>
-        // Initial Mock Data
+        // Initial Mock Data (Only Maintenance and Features)
         const defaultUpdates = [
             {
                 id: "1",
@@ -297,13 +292,6 @@
                 category: "Feature",
                 date: "2026-10-14",
                 content: "You can now generate granular API scopes directly inside your developer dashboard! Additionally, webhook delivery retry mechanisms have been upgraded to exponential backoff for improved reliability."
-            },
-            {
-                id: "3",
-                title: "Security Patch: Updated Encryption Standards",
-                category: "Security",
-                date: "2026-10-02",
-                content: "We have upgraded all public TLS endpoints to enforce TLS 1.3 protocol standards. Legacy cipher suites have been sunsetted to ensure strict enterprise-grade data security."
             }
         ];
 
@@ -332,6 +320,8 @@
             if (saved) {
                 try {
                     updates = JSON.parse(saved);
+                    // Filter out deprecated categories if existing in local storage
+                    updates = updates.filter(u => u.category === 'Maintenance' || u.category === 'Feature');
                 } catch (e) {
                     updates = defaultUpdates;
                 }
@@ -357,10 +347,6 @@
                     return '<span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20"><i class="fa-solid fa-wrench mr-1"></i> Maintenance</span>';
                 case 'Feature':
                     return '<span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20"><i class="fa-solid fa-rocket mr-1"></i> Feature</span>';
-                case 'Bug Fix':
-                    return '<span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20"><i class="fa-solid fa-bug mr-1"></i> Bug Fix</span>';
-                case 'Security':
-                    return '<span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"><i class="fa-solid fa-shield-halved mr-1"></i> Security</span>';
                 default:
                     return '<span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-500/10 text-slate-600 border border-slate-500/20">Notice</span>';
             }
