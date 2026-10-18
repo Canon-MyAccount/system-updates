@@ -40,12 +40,31 @@
             border-color: #cbd5e1; 
         }
 
-        /* Register custom Google Fonts inside Quill */
+        /* Register Custom Font Families */
         .ql-font-roboto { font-family: 'Roboto', sans-serif; }
         .ql-font-mirza { font-family: 'Mirza', cursive; }
         .ql-font-comic { font-family: 'Comic Neue', cursive; }
         .ql-font-serif { font-family: Georgia, serif; }
         .ql-font-monospace { font-family: Monaco, monospace; }
+
+        /* Fix Font Picker Dropdown Labels */
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="roboto"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="roboto"]::before {
+            content: 'Roboto' !important;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="mirza"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="mirza"]::before {
+            content: 'Mirza' !important;
+            font-family: 'Mirza', cursive;
+        }
+
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="comic"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="comic"]::before {
+            content: 'Comic Sans' !important;
+            font-family: 'Comic Neue', cursive;
+        }
     </style>
 </head>
 <body class="h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200">
