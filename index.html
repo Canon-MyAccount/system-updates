@@ -66,7 +66,7 @@
             </div>
         </header>
 
-        <!-- Main Body Content (Gap Reduced: py-8 changed to py-4) -->
+        <!-- Main Body Content -->
         <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
 
             <!-- ================= PUBLIC VIEW ================= -->
@@ -101,7 +101,7 @@
                 </div>
             </section>
 
-            <!-- ================= ADMIN DASHBOARD SECTION (Gap Reduced: space-y-8 changed to space-y-4) ================= -->
+            <!-- ================= ADMIN DASHBOARD SECTION ================= -->
             <section id="adminViewSection" class="hidden space-y-4">
                 <!-- Admin Header -->
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
@@ -289,7 +289,6 @@
             loadUpdates();
             setDefaultDate();
             
-            // Auto-detect #admin in URL on load
             if (window.location.hash === '#admin') {
                 toggleAdminMode();
             } else {
@@ -302,7 +301,7 @@
             document.documentElement.classList.toggle('dark');
         }
 
-        // Fixed Toggle Admin/Public View (Uses inline style display to prevent layout gaps)
+        // Toggle Admin / Public View
         function toggleAdminMode() {
             isAdminMode = !isAdminMode;
             const publicSec = document.getElementById('publicViewSection');
@@ -311,14 +310,14 @@
             const adminBtnIcon = document.getElementById('adminBtnIcon');
 
             if (isAdminMode) {
-                publicSec.style.display = 'none';
-                adminSec.style.display = 'block';
+                publicSec.classList.add('hidden');
+                adminSec.classList.remove('hidden');
                 adminBtnText.textContent = "View Public Page";
                 adminBtnIcon.className = "fa-solid fa-eye text-xs";
                 renderAdminUpdates();
             } else {
-                adminSec.style.display = 'none';
-                publicSec.style.display = 'block';
+                adminSec.classList.add('hidden');
+                publicSec.classList.remove('hidden');
                 adminBtnText.textContent = "Admin Portal";
                 adminBtnIcon.className = "fa-solid fa-lock text-xs";
                 renderPublicUpdates();
@@ -331,7 +330,6 @@
             if (saved) {
                 try {
                     updates = JSON.parse(saved);
-                    // Filter out deprecated categories if existing in local storage
                     updates = updates.filter(u => u.category === 'Maintenance' || u.category === 'Feature');
                 } catch (e) {
                     updates = defaultUpdates;
@@ -369,7 +367,6 @@
             const emptyState = document.getElementById('emptyState');
             const searchVal = document.getElementById('searchInput').value.toLowerCase();
 
-            // Filter logic
             const filtered = updates.filter(item => {
                 const matchesFilter = (activeFilter === "All" || item.category === activeFilter);
                 const matchesSearch = item.title.toLowerCase().includes(searchVal) || item.content.toLowerCase().includes(searchVal);
@@ -470,14 +467,12 @@
             const content = document.getElementById('postContent').value;
 
             if (id) {
-                // Update existing
                 const index = updates.findIndex(u => u.id === id);
                 if (index !== -1) {
                     updates[index] = { id, title, category, date, content };
                     showToast("Update modified successfully!");
                 }
             } else {
-                // Create new
                 const newUpdate = {
                     id: Date.now().toString(),
                     title,
@@ -591,7 +586,6 @@
 
             document.getElementById('emailHtmlOutput').value = htmlTemplate;
 
-            // Render iframe
             const iframe = document.getElementById('emailPreviewIframe');
             const doc = iframe.contentWindow.document;
             doc.open();
