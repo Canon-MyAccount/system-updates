@@ -124,7 +124,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Post / Edit Form Column -->
                     <div class="lg:col-span-1 space-y-4">
-                        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm sticky top-24">
+                        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
                             <h3 class="font-bold text-lg mb-4 flex items-center justify-between" id="formTitle">
                                 <span><i class="fa-solid fa-pen-to-square text-brand-500 mr-2"></i>Post New Update</span>
                                 <button id="cancelEditBtn" onclick="resetForm()" class="hidden text-xs text-rose-500 hover:underline">Cancel Edit</button>
@@ -299,7 +299,28 @@
         function toggleDarkMode() {
             document.documentElement.classList.toggle('dark');
         }
+// Toggle Admin/Public View
+function toggleAdminMode() {
+    isAdminMode = !isAdminMode;
+    const publicSec = document.getElementById('publicViewSection');
+    const adminSec = document.getElementById('adminViewSection');
+    const adminBtnText = document.getElementById('adminBtnText');
+    const adminBtnIcon = document.getElementById('adminBtnIcon');
 
+    if (isAdminMode) {
+        publicSec.style.display = 'none';
+        adminSec.classList.remove('hidden');
+        adminBtnText.textContent = "View Public Page";
+        adminBtnIcon.className = "fa-solid fa-eye text-xs";
+        renderAdminUpdates();
+    } else {
+        publicSec.style.display = 'block';
+        adminSec.classList.add('hidden');
+        adminBtnText.textContent = "Admin Portal";
+        adminBtnIcon.className = "fa-solid fa-lock text-xs";
+        renderPublicUpdates();
+    }
+}
         // Local Storage Helpers
         function loadUpdates() {
             const saved = localStorage.getItem('system_updates_data');
